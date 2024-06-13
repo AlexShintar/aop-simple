@@ -22,8 +22,8 @@ public class TrackTimeRestController {
     private final RandomMethodsRunner randomMethodsRunner;
     private final TrackTimeDataService trackTimeDataService;
 
-    @GetMapping("/generateMethods")
-    @Operation(summary = "Generate methods for test", description = "Generate of 100 methods for testing", operationId = "generateMethods")
+    @GetMapping("/generateData")
+    @Operation(summary = "Execute methods for test", description = "Execute 100 methods for testing", operationId = "generateData")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Successful operation"),
     })

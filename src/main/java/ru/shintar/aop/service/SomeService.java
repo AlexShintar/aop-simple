@@ -15,24 +15,22 @@ import java.util.concurrent.CompletableFuture;
 public class SomeService {
 
     @TrackTime
-    public List<Integer> someSyncMethod() {
-        ThreadUtils.waitTime((long) (200 * Math.random()));
+    public void someSyncMethod() {
         if (Math.random() > 0.9) {
-            throw new RuntimeException("SyncMethod some error");
+            throw new RuntimeException("SyncMethod some exception");
         }
-        return leetcode1291(0, Integer.MAX_VALUE);
+        leetcode1291(0, Integer.MAX_VALUE);
     }
 
     @TrackAsyncTime
     public CompletableFuture<Void> someAsyncMethod() {
-        ThreadUtils.waitTime((long) (200 * Math.random()));
         if (Math.random() > 0.9) {
-            throw new RuntimeException("AsyncMethod some error");
+            throw new RuntimeException("AsyncMethod some exception");
         }
         return CompletableFuture.runAsync(() -> leetcode1291(0, Integer.MAX_VALUE));
     }
 
-    private List<Integer> leetcode1291(int low, int high) {
+    private void leetcode1291(int low, int high) {
         List<Integer> list = new ArrayList<>();
         for (int i = 1; i < 10; ++i) {
             int n = i;
@@ -46,6 +44,6 @@ public class SomeService {
             }
         }
         list.sort(null);
-        return list;
+        ThreadUtils.waitTime((long) (200 * Math.random()));
     }
 }
