@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.shintar.aop.annotation.TrackAsyncTime;
 import ru.shintar.aop.annotation.TrackTime;
+import ru.shintar.aop.exception.SomeException;
 import ru.shintar.aop.util.ThreadUtils;
 
 import java.util.ArrayList;
@@ -16,18 +17,20 @@ public class SomeService {
 
     @TrackTime
     public void someSyncMethod() {
-        if (Math.random() > 0.9) {
-            throw new RuntimeException("SyncMethod some exception");
-        }
+        randomException("SyncMethod");
         leetcode1291(0, Integer.MAX_VALUE);
     }
 
     @TrackAsyncTime
     public CompletableFuture<Void> someAsyncMethod() {
-        if (Math.random() > 0.9) {
-            throw new RuntimeException("AsyncMethod some exception");
-        }
+        randomException("AsyncMethod");
         return CompletableFuture.runAsync(() -> leetcode1291(0, Integer.MAX_VALUE));
+    }
+
+    private static void randomException(String message) {
+        if (Math.random() > 0.9) {
+            throw new SomeException(message);
+        }
     }
 
     private void leetcode1291(int low, int high) {
